@@ -13,6 +13,8 @@ import VendaDetailModal from "@/components/gestor/VendaDetailModal";
 export default function GestorVendas() {
   const [clienteFilter, setClienteFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("todos");
+  const [produtoFilter, setProdutoFilter] = useState("todos");
+  const [valorRange, setValorRange] = useState("todos");
   const [selectedVenda, setSelectedVenda] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -20,9 +22,15 @@ export default function GestorVendas() {
     return vendasData.filter(v => {
       const matchCliente = v.cliente.toLowerCase().includes(clienteFilter.toLowerCase());
       const matchStatus = statusFilter === "todos" || v.status === statusFilter;
-      return matchCliente && matchStatus;
+      const matchProduto = produtoFilter === "todos" || v.produto === produtoFilter;
+      let matchValor = true;
+      if (valorRange === "0-50") matchValor = v.valor <= 50;
+      else if (valorRange === "50-150") matchValor = v.valor > 50 && v.valor <= 150;
+      else if (valorRange === "150-300") matchValor = v.valor > 150 && v.valor <= 300;
+      else if (valorRange === "300+") matchValor = v.valor > 300;
+      return matchCliente && matchStatus && matchProduto && matchValor;
     });
-  }, [clienteFilter, statusFilter]);
+  }, [clienteFilter, statusFilter, produtoFilter, valorRange]);
 
   const handleViewDetails = (venda) => {
     setSelectedVenda(venda);
@@ -71,6 +79,10 @@ export default function GestorVendas() {
               setClienteFilter={setClienteFilter}
               statusFilter={statusFilter}
               setStatusFilter={setStatusFilter}
+              produtoFilter={produtoFilter}
+              setProdutoFilter={setProdutoFilter}
+              valorRange={valorRange}
+              setValorRange={setValorRange}
             />
             <VendasTable vendas={filteredVendas} onViewDetails={handleViewDetails} />
           </div>

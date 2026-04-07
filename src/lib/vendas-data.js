@@ -39,6 +39,30 @@ export function getStatusList() {
   return [...new Set(vendasData.map(v => v.status))];
 }
 
+export function getProdutoList() {
+  return [...new Set(vendasData.map(v => v.produto))].sort();
+}
+
+export function getTotalCancelado() {
+  return vendasData
+    .filter(v => v.status === "Cancelado")
+    .reduce((sum, v) => sum + v.valor, 0);
+}
+
+export function getQtdPendente() {
+  return vendasData.filter(v => v.status === "Pendente").length;
+}
+
+export function getTaxaConclusao() {
+  return (getVendasConcluidas().length / vendasData.length) * 100;
+}
+
+export function getStatusDistribution() {
+  const counts = {};
+  vendasData.forEach(v => { counts[v.status] = (counts[v.status] || 0) + 1; });
+  return Object.entries(counts).map(([status, count]) => ({ status, count }));
+}
+
 export function formatCurrency(value) {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 }
