@@ -15,8 +15,21 @@ export default function GestorVendas() {
   const [statusFilter, setStatusFilter] = useState("todos");
   const [produtoFilter, setProdutoFilter] = useState("todos");
   const [valorRange, setValorRange] = useState("todos");
+  const [selectedIds, setSelectedIds] = useState(new Set());
   const [selectedVenda, setSelectedVenda] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+
+  const handleToggle = (id) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const handleToggleAll = (checked) => {
+    setSelectedIds(checked ? new Set(filteredVendas.map(v => v.id)) : new Set());
+  };
 
   const filteredVendas = useMemo(() => {
     return vendasData.filter(v => {
@@ -84,7 +97,13 @@ export default function GestorVendas() {
               valorRange={valorRange}
               setValorRange={setValorRange}
             />
-            <VendasTable vendas={filteredVendas} onViewDetails={handleViewDetails} />
+            <VendasTable
+              vendas={filteredVendas}
+              onViewDetails={handleViewDetails}
+              selectedIds={selectedIds}
+              onToggle={handleToggle}
+              onToggleAll={handleToggleAll}
+            />
           </div>
         </motion.div>
       </main>
