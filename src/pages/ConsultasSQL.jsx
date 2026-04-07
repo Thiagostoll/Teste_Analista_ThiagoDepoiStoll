@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Database, Code, AlertTriangle } from "lucide-react";
+import { ArrowLeft, Database, Code, AlertTriangle, Download } from "lucide-react";
 
 const queries = [
   {
@@ -104,12 +104,20 @@ export default function ConsultasSQL() {
               <p className="text-xs text-muted-foreground">Teste Analista — Thiago</p>
             </div>
           </div>
-          <Link to="/">
-            <Button variant="outline" size="sm" className="gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">Gestor de Vendas</span>
-            </Button>
-          </Link>
+          <div className="flex items-center gap-2">
+            <a href="/Teste_Analista_ThiagoSobrenome.sql" download>
+              <Button variant="outline" size="sm" className="gap-2">
+                <Download className="w-4 h-4" />
+                <span className="hidden sm:inline">.sql</span>
+              </Button>
+            </a>
+            <Link to="/">
+              <Button variant="outline" size="sm" className="gap-2">
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">Gestor de Vendas</span>
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 
