@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Download, Users, Clock } from "lucide-react";
+import { Download, Users, Clock, Printer } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
+import PrintHeader from "@/components/PrintHeader";
 import { getClientesInativos, formatCurrency, formatDate } from "@/lib/vendas-data";
 import { jsPDF } from "jspdf";
 
@@ -69,6 +70,18 @@ export default function ClientesInativos() {
       <AppHeader />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+        <PrintHeader title="Clientes Inativos" subtitle={`Período: inativos há mais de ${diasFiltro} dias`} />
+        {/* Ações */}
+        <div className="flex gap-2 justify-end no-print">
+          <Button variant="outline" size="sm" onClick={() => window.print()} className="gap-2">
+            <Printer className="w-4 h-4" />
+            Imprimir
+          </Button>
+          <Button variant="outline" size="sm" onClick={gerarPDF} className="gap-2">
+            <Download className="w-4 h-4" />
+            Exportar PDF
+          </Button>
+        </div>
         {/* Seletor de período */}
         <div className="flex gap-3 flex-wrap">
           {opcoes.map(o => (

@@ -2,6 +2,9 @@ import React, { useState, useMemo } from 'react';
 import { vendasData } from "@/lib/vendas-data";
 import { motion } from "framer-motion";
 import AppHeader from "@/components/AppHeader";
+import PrintHeader from "@/components/PrintHeader";
+import { Button } from "@/components/ui/button";
+import { Printer } from "lucide-react";
 
 import KPICards from "@/components/gestor/KPICards";
 import VendasFilters from "@/components/gestor/VendasFilters";
@@ -52,8 +55,17 @@ export default function GestorVendas() {
     <div className="min-h-screen bg-background">
       <AppHeader />
 
+      {/* Botão imprimir */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 flex justify-end no-print">
+        <Button variant="outline" size="sm" className="gap-2" onClick={() => window.print()}>
+          <Printer className="w-4 h-4" />
+          Imprimir
+        </Button>
+      </div>
+
       {/* Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-8">
+        <PrintHeader title="Relatório de Vendas" subtitle="Teste Analista — Thiago" />
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <KPICards />
         </motion.div>

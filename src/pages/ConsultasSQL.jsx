@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Code, AlertTriangle, Download } from "lucide-react";
+import { Code, AlertTriangle, Download, Printer } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
+import PrintHeader from "@/components/PrintHeader";
 
 const queries = [
   {
@@ -96,6 +97,20 @@ export default function ConsultasSQL() {
 
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+        <PrintHeader title="Consultas SQL" subtitle="Análise de Performance e Churn" />
+        {/* Ações */}
+        <div className="flex gap-2 justify-end no-print">
+          <Button variant="outline" size="sm" onClick={() => window.print()} className="gap-2">
+            <Printer className="w-4 h-4" />
+            Imprimir
+          </Button>
+          <a href="/Teste_Analista_ThiagoSobrenome.sql" download>
+            <Button variant="outline" size="sm" className="gap-2">
+              <Download className="w-4 h-4" />
+              .sql
+            </Button>
+          </a>
+        </div>
         {/* Context */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <Card className="border-border bg-muted/30">
