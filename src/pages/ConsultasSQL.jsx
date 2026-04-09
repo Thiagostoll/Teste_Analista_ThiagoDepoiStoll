@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Database, Code, AlertTriangle, Download } from "lucide-react";
+import { Code, AlertTriangle, Download } from "lucide-react";
+import AppHeader from "@/components/AppHeader";
 
 const queries = [
   {
@@ -92,34 +92,7 @@ function SQLBlock({ query, index }) {
 export default function ConsultasSQL() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-primary/10">
-              <Database className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-foreground">Consultas SQL</h1>
-              <p className="text-xs text-muted-foreground">Teste Analista — Thiago</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <a href="/Teste_Analista_ThiagoSobrenome.sql" download>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Download className="w-4 h-4" />
-                <span className="hidden sm:inline">.sql</span>
-              </Button>
-            </a>
-            <Link to="/">
-              <Button variant="outline" size="sm" className="gap-2">
-                <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Gestor de Vendas</span>
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <AppHeader />
 
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">

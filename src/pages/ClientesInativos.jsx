@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, UserX, Download, Users, Clock } from "lucide-react";
+import { Download, Users, Clock } from "lucide-react";
+import AppHeader from "@/components/AppHeader";
 import { getClientesInativos, formatCurrency, formatDate } from "@/lib/vendas-data";
 import { jsPDF } from "jspdf";
 
@@ -66,32 +66,7 @@ export default function ClientesInativos() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-30">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-red-50">
-              <UserX className="w-5 h-5 text-red-600" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-foreground">Clientes Inativos</h1>
-              <p className="text-xs text-muted-foreground">Análise de churn — Thiago</p>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={gerarPDF} className="gap-2">
-              <Download className="w-4 h-4" />
-              <span className="hidden sm:inline">Exportar PDF</span>
-            </Button>
-            <Link to="/">
-              <Button variant="outline" size="sm" className="gap-2">
-                <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Voltar</span>
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <AppHeader />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* Seletor de período */}
