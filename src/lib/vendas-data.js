@@ -18,7 +18,18 @@ export const vendasData = [
   { id: 1017, cliente: "Adriano Matos", data: "2026-04-10", produto: "ARROZ BRANCO 5KG", valor: 125.00, status: "Cancelado" },
   { id: 1018, cliente: "Marina Borges", data: "2026-04-11", produto: "ARROZ INTEGRAL 5KG", valor: 150.00, status: "Concluído" },
   { id: 1019, cliente: "Camila Ramos", data: "2026-04-11", produto: "ARROZ PARBO 2KG", valor: 52.00, status: "Pendente" },
-  { id: 1020, cliente: "Diego Barbosa", data: "2026-04-12", produto: "ARROZ BRANCO 5KG", valor: 375.00, status: "Concluído" }
+  { id: 1020, cliente: "Diego Barbosa", data: "2026-04-12", produto: "ARROZ BRANCO 5KG", valor: 375.00, status: "Concluído" },
+  // Clientes com histórico antigo (para relatório de inativos)
+  { id: 1021, cliente: "Roberto Faria", data: "2026-03-05", produto: "ARROZ BRANCO 5KG", valor: 125.00, status: "Concluído" },
+  { id: 1022, cliente: "Simone Castro", data: "2026-03-06", produto: "ARROZ INTEGRAL 5KG", valor: 150.00, status: "Concluído" },
+  { id: 1023, cliente: "Henrique Dias", data: "2026-03-10", produto: "ARROZ PARBO 5KG", valor: 270.00, status: "Concluído" },
+  { id: 1024, cliente: "Luciana Pinto", data: "2026-02-03", produto: "ARROZ BRANCO 2KG", valor: 48.00, status: "Concluído" },
+  { id: 1025, cliente: "Fábio Nogueira", data: "2026-02-10", produto: "ARROZ INTEGRAL 2KG", valor: 60.00, status: "Concluído" },
+  { id: 1026, cliente: "Beatriz Cunha", data: "2026-02-15", produto: "ARROZ BRANCO 5KG", valor: 500.00, status: "Concluído" },
+  { id: 1027, cliente: "Thiago Melo", data: "2026-01-04", produto: "ARROZ PARBO 2KG", valor: 104.00, status: "Concluído" },
+  { id: 1028, cliente: "Priscila Vaz", data: "2026-01-10", produto: "ARROZ BRANCO 5KG", valor: 250.00, status: "Concluído" },
+  { id: 1029, cliente: "Rodrigo Assis", data: "2025-12-20", produto: "ARROZ INTEGRAL 5KG", valor: 300.00, status: "Concluído" },
+  { id: 1030, cliente: "Natália Sousa", data: "2025-12-01", produto: "ARROZ BRANCO 2KG", valor: 96.00, status: "Concluído" },
 ];
 
 export function getVendasConcluidas() {
@@ -70,4 +81,31 @@ export function formatCurrency(value) {
 export function formatDate(dateStr) {
   const [year, month, day] = dateStr.split('-');
   return `${day}/${month}/${year}`;
+}
+
+export function getClientesInativos(dias) {
+  const hoje = new Date('2026-04-09');
+  const limite = new Date(hoje);
+  limite.setDate(hoje.getDate() - dias);
+
+  // Último pedido concluído por cliente
+  const ultimaCompra = {};
+  vendasData.forEach(v => {
+    if (v.status !== 'Concluído') return;
+    const d = new Date(v.data);
+    if (!ultimaCompra[v.cliente] || d > ultimaCompra[v.cliente].data) {
+      ultimaCompra[v.cliente] = { data: d, dataStr: v.data, produto: v.produto, valor: v.valor };
+    }
+  });
+
+  return Object.entries(ultimaCompra)
+    .filter(([, info]) => info.data < limite)
+    .map(([cliente, info]) => ({
+      cliente,
+      ultimaCompra: info.dataStr,
+      produto: info.produto,
+      valor: info.valor,
+      diasInativo: Math.floor((hoje - info.data) / (1000 * 60 * 60 * 24)),
+    }))
+    .sort((a, b) => b.diasInativo - a.diasInativo);
 }

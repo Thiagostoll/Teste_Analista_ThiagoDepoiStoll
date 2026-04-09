@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { vendasData } from "@/lib/vendas-data";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Database, ShoppingCart } from "lucide-react";
+import { Database, ShoppingCart, UserX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import KPICards from "@/components/gestor/KPICards";
@@ -64,12 +64,20 @@ export default function GestorVendas() {
               <p className="text-xs text-muted-foreground">Teste Analista — Thiago</p>
             </div>
           </div>
-          <Link to="/sql">
-            <Button variant="outline" size="sm" className="gap-2">
-              <Database className="w-4 h-4" />
-              <span className="hidden sm:inline">Consultas SQL</span>
-            </Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link to="/inativos">
+              <Button variant="outline" size="sm" className="gap-2">
+                <UserX className="w-4 h-4" />
+                <span className="hidden sm:inline">Inativos</span>
+              </Button>
+            </Link>
+            <Link to="/sql">
+              <Button variant="outline" size="sm" className="gap-2">
+                <Database className="w-4 h-4" />
+                <span className="hidden sm:inline">Consultas SQL</span>
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 

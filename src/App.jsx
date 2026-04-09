@@ -6,6 +6,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import GestorVendas from './pages/GestorVendas';
+import ClientesInativos from './pages/ClientesInativos';
 import ConsultasSQL from './pages/ConsultasSQL';
 
 const AuthenticatedApp = () => {
@@ -36,6 +37,7 @@ const AuthenticatedApp = () => {
     <Routes>
       <Route path="/" element={<GestorVendas />} />
       <Route path="/sql" element={<ConsultasSQL />} />
+      <Route path="/inativos" element={<ClientesInativos />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
